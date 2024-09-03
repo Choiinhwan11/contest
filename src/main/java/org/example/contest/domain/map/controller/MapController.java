@@ -18,7 +18,7 @@ public class MapController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/save")
     public String saveMap() {
-        // 저장 로직
+
         return "Map saved";
     }
 }

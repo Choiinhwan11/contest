@@ -20,7 +20,7 @@ public class WeatherController {
     @GetMapping("/getWeather")
     public ResponseEntity<JSONObject> getWeather(@RequestParam(value = "nx", required = true) String nx,
                                                  @RequestParam(value = "ny", required = true) String ny) {
-        // nx와 ny가 필수 파라미터로 처리됩니다.
+
         JSONObject weatherData = weatherService.getWeatherData(nx, ny);
         return ResponseEntity.ok(weatherData);
     }
