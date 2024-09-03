@@ -1,21 +1,19 @@
 package org.example.contest.domain.weather.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.contest.domain.weather.entity.Weather;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -29,53 +27,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WeatherServiceImpl implements WeatherService {
 
-    private final RestTemplate restTemplate;
-
     @Value("${weather.api.url}")
     private String apiUrl;
 
     @Value("${weather.api.serviceKey}")
     private String serviceKey;
 
-    /**
-     * 이 메서드는 기상청 API로부터 특정 좌표에 대한 날씨 데이터를 가져오는 기능을 합니다.
-     *
-     * @param nx - X 좌표 (격자 X)
-     * @param ny - Y 좌표 (격자 Y)
-     * @return 날씨 데이터를 포함한 JSONObject
-     */
     @Override
     public JSONObject getWeatherData(String nx, String ny) {
-        // 현재 날짜
+        // 날짜와 시간 설정
         LocalDate today = LocalDate.now();
-
-        // 예보 시간 설정
-        List<String> forecastTimes = new ArrayList<>(List.of("0200", "0500", "0800", "1100", "1400", "1700", "2000", "2300"));
-        forecastTimes.add("0000");
-
-        //ㄱ가까운 시간
         LocalTime now = LocalTime.now();
-        String baseTime = Weather.getClosestForecastTime(now, forecastTimes);
-        System.out.println("baseTime = " + baseTime);
-
-        //  날짜를 yyyyMMdd
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        // 불변 리스트 대신 수정 가능한 리스트로 변경
+        List<String> forecastTimes = new ArrayList<>(List.of("0200", "0500", "0800", "1100", "1400", "1700", "2000", "2300", "0000"));
+        String baseTime = getClosestForecastTime(now, forecastTimes);
         String baseDate = today.format(dateFormatter);
+
+        System.out.println("baseTime = " + baseTime);
         System.out.println("baseDate = " + baseDate);
 
         try {
-            // 서비스 키와 요청 파라미터를 설정합니다.
-            //String serviceKeyEncoded = serviceKey;
-            String serviceKeyEncoded = URLEncoder.encode(serviceKey, StandardCharsets.UTF_8.toString());
+            // nx와 ny를 정수형으로 변환
+            int nxInt = (int) Math.round(Double.parseDouble(nx));
+            int nyInt = (int) Math.round(Double.parseDouble(ny));
+
+            String serviceKeyEncoded = serviceKey;
             String numOfRows = "10";
             String pageNo = "1";
-            String dataType = "JSON";
             String baseDateEncoded = URLEncoder.encode(baseDate, StandardCharsets.UTF_8.toString());
             String baseTimeEncoded = URLEncoder.encode(baseTime, StandardCharsets.UTF_8.toString());
-            String nxEncoded = URLEncoder.encode(nx, StandardCharsets.UTF_8.toString());
-            String nyEncoded = URLEncoder.encode(ny, StandardCharsets.UTF_8.toString());
+            String nxEncoded = URLEncoder.encode(String.valueOf(nxInt), StandardCharsets.UTF_8.toString());
+            String nyEncoded = URLEncoder.encode(String.valueOf(nyInt), StandardCharsets.UTF_8.toString());
 
-            // StringBuilder
+            // API URL 생성
             StringBuilder urlBuilder = new StringBuilder(apiUrl);
             urlBuilder.append("?serviceKey=").append(serviceKeyEncoded);
             urlBuilder.append("&numOfRows=").append(numOfRows);
@@ -84,88 +70,115 @@ public class WeatherServiceImpl implements WeatherService {
             urlBuilder.append("&base_time=").append(baseTimeEncoded);
             urlBuilder.append("&nx=").append(nxEncoded);
             urlBuilder.append("&ny=").append(nyEncoded);
-            urlBuilder.append("&dataType=").append(dataType);
 
-            String url = urlBuilder.toString();
+            // dataType 파라미터 제거됨
+            String urlStr = urlBuilder.toString();
+            System.out.println("Request URL: " + urlStr);
 
-            System.out.println("url = " + url);
-            System.out.println("base_Date = " + baseDate);
-            System.out.println("base_Time = " + baseTime);
-            System.out.println("Request URL: " + url);
+            // URL 연결 및 요청 전송
+            URL url = new URL(urlStr);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
-            // API 요청을 위한 헤더를 설정합니다.
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Accept-Charset", "UTF-8");
-            headers.set("Content-Type", "application/json");
+            // 응답 코드 확인
+            int responseCode = conn.getResponseCode();
+            System.out.println("Response Code : " + responseCode);
 
-            // HTTP 요청을 생성합니다.
-            HttpEntity<String> entity = new HttpEntity<>(headers);
-            System.out.println("entity = " + entity);
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 응답인 경우
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
 
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
 
-            try {
-                ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-                String xmlResponse = responseEntity.getBody();
-                System.out.println("API Response: " + xmlResponse);
+                // 응답 본문 출력 확인
+                String responseBody = response.toString();
+                System.out.println("API Response Body: " + responseBody);
 
-                if (xmlResponse != null && !xmlResponse.isEmpty()) {
-                    // XML 응답을 JSON 객체로 변환합니다.
-                    JSONObject jsonResponse = XML.toJSONObject(xmlResponse);
+                if (responseBody.trim().startsWith("<")) {
+                    // XML을 JSON으로 변환
+                    JSONObject jsonResponse = XML.toJSONObject(responseBody);
                     System.out.println("Converted JSON Response: " + jsonResponse.toString(2));
-
-                    // 변환된 JSON 응답을 처리합니다.
+                    return parseJsonResponse(jsonResponse);
+                } else if (responseBody.trim().startsWith("{")) {
+                    // 이미 JSON 형식일 경우 그대로 처리
+                    JSONObject jsonResponse = new JSONObject(responseBody);
                     return parseJsonResponse(jsonResponse);
                 } else {
-                    throw new RuntimeException("Empty or null response from weather API");
+                    throw new RuntimeException("Unexpected response format: " + responseBody);
                 }
-            } catch (Exception e) {
-                String errorMessage = String.format("Failed to retrieve weather data from URL: %s, with nx: %s, ny: %s. Error: %s", url, nx, ny, e.getMessage());
-                System.err.println(errorMessage);
-                throw new RuntimeException(errorMessage, e);
+            } else {
+                throw new RuntimeException("Failed to retrieve weather data: Response Code " + responseCode);
             }
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Encoding error", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error during API request", e);
         }
     }
 
-    /**
-     * 이 메서드는 기상청 API의 JSON 응답을 파싱하여 날씨 데이터를 추출하는 기능을 합니다.
-     *
-     * @param jsonResponse - 기상청 API로부터 받은 JSON 응답
-     * @return 파싱된 날씨 데이터를 포함한 JSONObject
-     */
     private JSONObject parseJsonResponse(JSONObject jsonResponse) {
         try {
-            System.out.println("Full JSON Response: " + jsonResponse.toString(2));  // 전체 응답 출력
-            if (jsonResponse.has("response")) {  // "response" 필드가 존재하는지 확인
+            System.out.println("Full JSON Response: " + jsonResponse.toString(2));
+
+            // resultCode 확인
+            String resultCode = jsonResponse.getJSONObject("response").getJSONObject("header").getString("resultCode");
+            if (!"00".equals(resultCode)) {
+                String resultMsg = jsonResponse.getJSONObject("response").getJSONObject("header").getString("resultMsg");
+                throw new RuntimeException("API Error: " + resultMsg);
+            }
+
+            // 결과를 저장할 JSON 객체
+            JSONObject resultData = new JSONObject();
+
+            // body 필드가 있는지 확인하고 처리
+            if (jsonResponse.getJSONObject("response").has("body")) {
                 JSONObject responseBody = jsonResponse.getJSONObject("response").getJSONObject("body");
                 JSONArray itemArray = responseBody.getJSONObject("items").getJSONArray("item");
 
-                if (itemArray.length() > 0) {
-                    JSONObject firstItem = itemArray.getJSONObject(0);
-                    double temperature = firstItem.optDouble("T1H", Double.NaN);  // 온도
-                    double humidity = firstItem.optDouble("REH", Double.NaN);     // 습도
-                    double precipitation = firstItem.optDouble("RN1", Double.NaN); // 강수량
+                // 각 예보 항목을 카테고리별로 처리
+                for (int i = 0; i < itemArray.length(); i++) {
+                    JSONObject item = itemArray.getJSONObject(i);
+                    String category = item.getString("category");
+                    String fcstTime = item.optString("fcstTime", "");  // 안전하게 fcstTime 값을 가져옴
 
-                    JSONObject weatherData = new JSONObject();
-                    weatherData.put("temperature", temperature);
-                    weatherData.put("humidity", humidity);
-                    weatherData.put("precipitation", precipitation);
-
-                    return weatherData;
-                } else {
-                    throw new RuntimeException("No items found in the JSON response");
+                    // 필요한 데이터 추출
+                    switch (category) {
+                        case "T1H":  // 기온
+                            resultData.put("temperature_" + fcstTime, item.getDouble("fcstValue"));
+                            break;
+                        case "PTY":  // 강수 형태
+                            resultData.put("precipitation_type_" + fcstTime, item.getInt("fcstValue"));
+                            break;
+                        case "RN1":  // 시간당 강수량
+                            resultData.put("precipitation_amount_" + fcstTime, item.getDouble("fcstValue"));
+                            break;
+                        case "REH":  // 습도
+                            resultData.put("humidity_" + fcstTime, item.getInt("fcstValue"));
+                            break;
+                    }
                 }
+
+                return resultData;
             } else {
-                String errorMsg = jsonResponse.optJSONObject("OpenAPI_ServiceResponse")
-                        .optJSONObject("cmmMsgHeader")
-                        .optString("errMsg", "Unknown error");
-                throw new RuntimeException("API Error: " + errorMsg);
+                throw new RuntimeException("API response does not contain a 'body' field");
             }
         } catch (JSONException ex) {
             throw new RuntimeException("Invalid JSON structure", ex);
         }
     }
 
+    private String getClosestForecastTime(LocalTime now, List<String> forecastTimes) {
+        String closestTime = forecastTimes.get(0);
+        for (String time : forecastTimes) {
+            if (now.isBefore(LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm")))) {
+                break;
+            }
+            closestTime = time;
+        }
+        return closestTime;
+    }
 }
-
