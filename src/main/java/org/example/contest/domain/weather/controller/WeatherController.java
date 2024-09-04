@@ -21,6 +21,7 @@ public class WeatherController {
     public ResponseEntity<JSONObject> getWeather(@RequestParam(value = "nx", required = true) String nx,
                                                  @RequestParam(value = "ny", required = true) String ny) {
 
+        System.out.println("nx = " + nx);
         JSONObject weatherData = weatherService.getWeatherData(nx, ny);
         return ResponseEntity.ok(weatherData);
     }

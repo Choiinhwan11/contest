@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -35,26 +34,23 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public JSONObject getWeatherData(String nx, String ny) {
-        // 날짜
+        // 날짜 및 시간 설정
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        //시간 설정
+        // 예보 시간 설정
         List<String> forecastTimes = new ArrayList<>(List.of("0200", "0500", "0800", "1100", "1400", "1700", "2000", "2300", "0000"));
         String baseTime = getClosestForecastTime(now, forecastTimes);
         String baseDate = today.format(dateFormatter);
 
-        System.out.println("baseTime = " + baseTime);
-        System.out.println("baseDate = " + baseDate);
-
         try {
-            //x , y int
+            // x, y 좌표를 int로 변환
             int nxInt = (int) Math.round(Double.parseDouble(nx));
             int nyInt = (int) Math.round(Double.parseDouble(ny));
 
             String serviceKeyEncoded = serviceKey;
-            String numOfRows = "10";
+            String numOfRows = "100";
             String pageNo = "1";
             String baseDateEncoded = URLEncoder.encode(baseDate, StandardCharsets.UTF_8.toString());
             String baseTimeEncoded = URLEncoder.encode(baseTime, StandardCharsets.UTF_8.toString());
@@ -71,10 +67,8 @@ public class WeatherServiceImpl implements WeatherService {
             urlBuilder.append("&nx=").append(nxEncoded);
             urlBuilder.append("&ny=").append(nyEncoded);
 
-
             String urlStr = urlBuilder.toString();
             System.out.println("Request URL: " + urlStr);
-
 
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -94,18 +88,18 @@ public class WeatherServiceImpl implements WeatherService {
                 }
                 in.close();
 
-
                 String responseBody = response.toString();
                 System.out.println("API Response Body: " + responseBody);
 
+                // XML을 JSON으로 변환
                 if (responseBody.trim().startsWith("<")) {
-
                     JSONObject jsonResponse = XML.toJSONObject(responseBody);
                     System.out.println("Converted JSON Response: " + jsonResponse.toString(2));
                     return parseJsonResponse(jsonResponse);
                 } else if (responseBody.trim().startsWith("{")) {
                     // 이미 JSON 형식일 경우 그대로 처리
                     JSONObject jsonResponse = new JSONObject(responseBody);
+                    System.out.println("JSON Response: " + jsonResponse.toString(2));
                     return parseJsonResponse(jsonResponse);
                 } else {
                     throw new RuntimeException("Unexpected response format: " + responseBody);
@@ -113,78 +107,108 @@ public class WeatherServiceImpl implements WeatherService {
             } else {
                 throw new RuntimeException("Failed to retrieve weather data: Response Code " + responseCode);
             }
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Encoding error", e);
         } catch (Exception e) {
             throw new RuntimeException("Error during API request", e);
         }
     }
 
+    // JSON 응답 처리
     private JSONObject parseJsonResponse(JSONObject jsonResponse) {
         try {
             System.out.println("Full JSON Response: " + jsonResponse.toString(2));
 
-            String resultCode = jsonResponse.getJSONObject("response").getJSONObject("header").getString("resultCode");
+            // "response" 필드가 있는지 확인
+            if (!jsonResponse.has("response")) {
+                throw new RuntimeException("API response does not contain a 'response' field");
+            }
+
+            JSONObject responseObj = jsonResponse.getJSONObject("response");
+
+            // "header" 필드가 있는지 확인
+            if (!responseObj.has("header")) {
+                throw new RuntimeException("API response does not contain a 'header' field");
+            }
+
+            String resultCode = responseObj.getJSONObject("header").optString("resultCode", "");
             if (!"00".equals(resultCode)) {
-                String resultMsg = jsonResponse.getJSONObject("response").getJSONObject("header").getString("resultMsg");
+                String resultMsg = responseObj.getJSONObject("header").optString("resultMsg", "API Error");
                 throw new RuntimeException("API Error: " + resultMsg);
             }
 
-            JSONObject resultData = new JSONObject();
-            resultData.put("empty", true);  // 기본적으로 데이터를 비어있다고 설정
-
-            if (jsonResponse.getJSONObject("response").has("body")) {
-                JSONObject responseBody = jsonResponse.getJSONObject("response").getJSONObject("body");
-                JSONArray itemArray = responseBody.getJSONObject("items").getJSONArray("item");
-
-                if (itemArray.length() > 0) {
-                    resultData.put("empty", false);  // 데이터가 있으면 empty를 false로 설정
-
-                    Double temperature = null;
-                    Integer precipitationType = null;
-                    Double precipitationAmount = null;
-                    Integer humidity = null;
-                    String forecastTime = null;
-
-                    for (int i = 0; i < itemArray.length(); i++) {
-                        JSONObject item = itemArray.getJSONObject(i);
-                        String category = item.getString("category");
-                        String fcstTime = item.optString("fcstTime", "");
-                        forecastTime = fcstTime;
-
-                        switch (category) {
-                            case "T1H":
-                                temperature = item.getDouble("fcstValue");
-                                break;
-                            case "PTY":
-                                precipitationType = item.getInt("fcstValue");
-                                break;
-                            case "RN1":
-                                precipitationAmount = item.getDouble("fcstValue");
-                                break;
-                            case "REH":
-                                humidity = item.getInt("fcstValue");
-                                break;
-                        }
-                    }
-
-                    resultData.put("temperature", temperature != null ? temperature : "정보 없음");
-                    resultData.put("precipitation_type", precipitationType != null ? precipitationType : "정보 없음");
-                    resultData.put("precipitation", precipitationAmount != null ? precipitationAmount : "정보 없음");
-                    resultData.put("humidity", humidity != null ? humidity : "정보 없음");
-                    resultData.put("forecast_time", forecastTime != null ? forecastTime : "정보 없음");
-                }
-            } else {
+            // "body" 필드가 있는지 확인
+            if (!responseObj.has("body")) {
                 throw new RuntimeException("API response does not contain a 'body' field");
             }
 
+            JSONObject responseBody = responseObj.getJSONObject("body");
+            JSONArray items = responseBody.getJSONObject("items").getJSONArray("item");
+
+            // 결과를 저장할 JSON 객체
+            JSONObject resultData = new JSONObject();
+            JSONArray itemArray = new JSONArray();
+
+            // 각 예보 항목을 카테고리별로 처리
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                String category = item.optString("category", "");  // category가 없는 경우를 대비
+
+                JSONObject resultItem = new JSONObject();
+
+                switch (category) {
+                    case "LGT":  // 낙뢰
+                        resultItem.put("categoryName", "낙뢰");
+                        resultItem.put("value", item.optDouble("fcstValue", 0) + " kA");
+                        break;
+                    case "RN1":  // 강수량
+                        double rainfall = item.optDouble("fcstValue", 0.0);
+                        String riskLevel = getRainfallRiskLevel(rainfall);
+                        resultItem.put("categoryName", "1시간 강수량");
+                        resultItem.put("value", rainfall + " mm");
+                        resultItem.put("riskLevel", riskLevel);
+                        break;
+                    case "T1H":  // 온도
+                        double temperature = item.optDouble("fcstValue", -999);
+                        resultItem.put("categoryName", "기온");
+                        resultItem.put("value", temperature + " °C");
+                        break;
+                    case "REH":  // 습도
+                        double humidity = item.optDouble("fcstValue", -999);
+                        resultItem.put("categoryName", "습도");
+                        resultItem.put("value", humidity + " %");
+                        break;
+                    default:
+                        continue;
+                }
+
+                resultItem.put("baseDate", item.optString("baseDate", "정보 없음"));
+                resultItem.put("baseTime", item.optString("baseTime", "정보 없음"));
+                resultItem.put("fcstDate", item.optString("fcstDate", "정보 없음"));
+                resultItem.put("fcstTime", item.optString("fcstTime", "정보 없음"));
+
+                System.out.println("Processed item: " + resultItem.toString());
+                itemArray.put(resultItem);
+            }
+
+            resultData.put("item", itemArray);
             return resultData;
         } catch (JSONException ex) {
             throw new RuntimeException("Invalid JSON structure", ex);
         }
     }
 
-
+    // 강수량 위험도 계산
+    private String getRainfallRiskLevel(double rainfall) {
+        if (rainfall <= 5) {
+            return "안전";
+        } else if (rainfall <= 20) {
+            return "주의";
+        } else if (rainfall <= 50) {
+            return "위험";
+        } else {
+            return "매우 위험";
+        }
+    }
+    // 가장 가까운 예보 시간 계산
     private String getClosestForecastTime(LocalTime now, List<String> forecastTimes) {
         String closestTime = forecastTimes.get(0);
         for (String time : forecastTimes) {

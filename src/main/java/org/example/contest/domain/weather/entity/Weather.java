@@ -54,4 +54,15 @@ public class Weather {
         return forecastTimes.get(forecastTimes.size() - 1);
     }
 
+    // 강수량에 따른 위험 수준 반환
+    public static String getRainfallRiskLevel(double rainfall) {
+        if (rainfall >= 20) {
+            return "위험 수준 높음";
+        } else if (rainfall >= 5) {
+            return "위험 수준 중간";
+        } else {
+            return "위험 수준 낮음";
+        }
+    }
+
 }
