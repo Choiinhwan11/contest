@@ -1,6 +1,7 @@
 package org.example.contest.domain.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.contest.domain.weather.entity.Weather;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,13 +92,13 @@ public class WeatherServiceImpl implements WeatherService {
                 String responseBody = response.toString();
                 System.out.println("API Response Body: " + responseBody);
 
-                // XML을 JSON으로 변환
+                // XML-> JSON으로 변환
                 if (responseBody.trim().startsWith("<")) {
                     JSONObject jsonResponse = XML.toJSONObject(responseBody);
                     System.out.println("Converted JSON Response: " + jsonResponse.toString(2));
                     return parseJsonResponse(jsonResponse);
                 } else if (responseBody.trim().startsWith("{")) {
-                    // 이미 JSON 형식일 경우 그대로 처리
+                    // JSON
                     JSONObject jsonResponse = new JSONObject(responseBody);
                     System.out.println("JSON Response: " + jsonResponse.toString(2));
                     return parseJsonResponse(jsonResponse);
@@ -112,19 +113,19 @@ public class WeatherServiceImpl implements WeatherService {
         }
     }
 
-    // JSON 응답 처리
+    //  처리
     private JSONObject parseJsonResponse(JSONObject jsonResponse) {
         try {
             System.out.println("Full JSON Response: " + jsonResponse.toString(2));
 
-            // "response" 필드가 있는지 확인
+
             if (!jsonResponse.has("response")) {
                 throw new RuntimeException("API response does not contain a 'response' field");
             }
 
             JSONObject responseObj = jsonResponse.getJSONObject("response");
 
-            // "header" 필드가 있는지 확인
+            // header 확인
             if (!responseObj.has("header")) {
                 throw new RuntimeException("API response does not contain a 'header' field");
             }
@@ -135,7 +136,7 @@ public class WeatherServiceImpl implements WeatherService {
                 throw new RuntimeException("API Error: " + resultMsg);
             }
 
-            // "body" 필드가 있는지 확인
+            // body 확인
             if (!responseObj.has("body")) {
                 throw new RuntimeException("API response does not contain a 'body' field");
             }
@@ -147,10 +148,10 @@ public class WeatherServiceImpl implements WeatherService {
             JSONObject resultData = new JSONObject();
             JSONArray itemArray = new JSONArray();
 
-            // 각 예보 항목을 카테고리별로 처리
+            //카테고리별로 처리
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.getJSONObject(i);
-                String category = item.optString("category", "");  // category가 없는 경우를 대비
+                String category = item.optString("category", "");
 
                 JSONObject resultItem = new JSONObject();
 
@@ -161,7 +162,7 @@ public class WeatherServiceImpl implements WeatherService {
                         break;
                     case "RN1":  // 강수량
                         double rainfall = item.optDouble("fcstValue", 0.0);
-                        String riskLevel = getRainfallRiskLevel(rainfall);
+                        String riskLevel = Weather.getRainfallRiskLevel(rainfall);
                         resultItem.put("categoryName", "1시간 강수량");
                         resultItem.put("value", rainfall + " mm");
                         resultItem.put("riskLevel", riskLevel);
@@ -175,6 +176,12 @@ public class WeatherServiceImpl implements WeatherService {
                         double humidity = item.optDouble("fcstValue", -999);
                         resultItem.put("categoryName", "습도");
                         resultItem.put("value", humidity + " %");
+                        break;
+                    case "SKY":  // 하늘 상태
+                        int skyCondition = item.optInt("fcstValue", 1);
+                        String skyStatus = Weather.getSkyCondition(skyCondition);
+                        resultItem.put("categoryName", "하늘 상태");
+                        resultItem.put("value", skyStatus);
                         break;
                     default:
                         continue;
@@ -196,19 +203,10 @@ public class WeatherServiceImpl implements WeatherService {
         }
     }
 
-    // 강수량 위험도 계산
-    private String getRainfallRiskLevel(double rainfall) {
-        if (rainfall <= 5) {
-            return "안전";
-        } else if (rainfall <= 20) {
-            return "주의";
-        } else if (rainfall <= 50) {
-            return "위험";
-        } else {
-            return "매우 위험";
-        }
-    }
-    // 가장 가까운 예보 시간 계산
+
+
+
+    //  가까운예보 시간 계산
     private String getClosestForecastTime(LocalTime now, List<String> forecastTimes) {
         String closestTime = forecastTimes.get(0);
         for (String time : forecastTimes) {
