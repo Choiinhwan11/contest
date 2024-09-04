@@ -158,7 +158,7 @@ public class WeatherServiceImpl implements WeatherService {
                 switch (category) {
                     case "LGT":  // 낙뢰
                         resultItem.put("categoryName", "낙뢰");
-                        resultItem.put("value", item.optDouble("fcstValue", 0) + " kA");
+                        resultItem.put("value", item.optDouble("fcstValue", 0) + " KA");
                         break;
                     case "RN1":  // 강수량
                         double rainfall = item.optDouble("fcstValue", 0.0);
