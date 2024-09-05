@@ -33,6 +33,13 @@ public class WeatherServiceImpl implements WeatherService {
     @Value("${weather.api.serviceKey}")
     private String serviceKey;
 
+
+    /**
+     * get NX NY
+     * weather api get
+     * base URL build
+     * HttpURLConnection
+     * */
     @Override
     public JSONObject getWeatherData(String nx, String ny) {
         // 날짜 및 시간 설정

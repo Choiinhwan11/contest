@@ -45,7 +45,7 @@ public class WeatherItem {
         return "PTY".equals(category);
     }
 
-    // 기온 (T1H), 섭씨온도
+    // 기온 (T1H),
     public boolean isTemperature() {
         return "T1H".equals(category);
     }
