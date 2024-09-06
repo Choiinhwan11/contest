@@ -23,19 +23,18 @@ public class DisasterServiceImpl implements DisasterService {
     @Value("${disaster.api.serviceKey}")
     private String serviceKey;
 
-    private String dataName = "데이터명";
+    private String dataName = "데이터명";  // 실제 데이터명으로 대체 필요
     private String pageNo = "1";
-    private String numOfRows = "100";
+    private String numOfRows = "10";
 
     @Override
     public String getDisasterData() {
         try {
             // API를 호출하기 위한 URL 생성
             StringBuilder urlBuilder = new StringBuilder(apiUrl);
-            urlBuilder.append(URLEncoder.encode(dataName, "UTF-8"));
-            urlBuilder.append("?" + "servicekey=" + URLEncoder.encode(serviceKey, "UTF-8"));
-            urlBuilder.append("&" + "pageNo=" + URLEncoder.encode(pageNo, "UTF-8"));
-            urlBuilder.append("&" + "numOfRows=" + URLEncoder.encode(numOfRows, "UTF-8"));
+            urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+            urlBuilder.append("&pageNo=").append(URLEncoder.encode(pageNo, "UTF-8"));
+            urlBuilder.append("&numOfRows=").append(URLEncoder.encode(numOfRows, "UTF-8"));
 
             System.out.println("Request URL: " + urlBuilder.toString());
 
@@ -72,4 +71,5 @@ public class DisasterServiceImpl implements DisasterService {
             return null;
         }
     }
+
 }

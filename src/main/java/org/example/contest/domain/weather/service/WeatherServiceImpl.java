@@ -127,14 +127,14 @@ public class WeatherServiceImpl implements WeatherService {
 
 
             if (!jsonResponse.has("response")) {
-                throw new RuntimeException("API response does not contain a 'response' field");
+                throw new RuntimeException("API  field");
             }
 
             JSONObject responseObj = jsonResponse.getJSONObject("response");
 
             // header 확인
             if (!responseObj.has("header")) {
-                throw new RuntimeException("API response does not contain a 'header' field");
+                throw new RuntimeException("API  'header' field");
             }
 
             String resultCode = responseObj.getJSONObject("header").optString("resultCode", "");

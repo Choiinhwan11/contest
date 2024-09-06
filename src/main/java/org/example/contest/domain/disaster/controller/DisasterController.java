@@ -15,19 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class DisasterController {
 
-    public DisasterService disasterService;
+    public final DisasterService disasterService;
 
-    @GetMapping("/findDisaster")
+
+
+    @GetMapping("/getDisasterData")
     public ResponseEntity<String> getDisasterData() {
-        // 서비스에서 재난 데이터를 호출
-        String disasterData = disasterService.getDisasterData();
-
-        // 200 반환
-        if (disasterData != null) {
-            return ResponseEntity.ok(disasterData);
+        String data = disasterService.getDisasterData();
+        if (data != null) {
+            return ResponseEntity.ok(data);
         } else {
-            //  500 에러
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve disaster data.");
+            return ResponseEntity.status(500).body("Error fetching disaster data");
         }
     }
 
