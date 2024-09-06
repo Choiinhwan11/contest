@@ -8,18 +8,18 @@ import org.springframework.context.annotation.Configuration;
 public class WeatherConfig {
 
     @Value("${weather.api.url}")
-    private String apiUrl;
+    private String weatherApiUrl;
 
     @Value("${weather.api.serviceKey}")
-    private String serviceKey;
+    private String weatherServiceKey;
 
-    @Bean
-    public String apiUrl() {
-        return apiUrl;
+    @Bean(name = "weatherApiUrl")
+    public String weatherApiUrl() {
+        return weatherApiUrl;
     }
 
-    @Bean
-    public String serviceKey() {
-        return serviceKey;
+    @Bean(name = "weatherServiceKey")
+    public String weatherServiceKey() {
+        return weatherServiceKey;
     }
 }

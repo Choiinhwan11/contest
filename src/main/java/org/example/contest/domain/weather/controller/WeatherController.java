@@ -28,7 +28,7 @@ public class WeatherController {
             // JSON 데이터를 문자열로 변환하여 반환
             return ResponseEntity.ok(weatherData.toString());
         } catch (Exception e) {
-            // 에러 발생 시 에러 메시지를 문자열로 변환하여 반환
+
             return ResponseEntity.status(500).body(new JSONObject().put("error", "Error fetching weather data: " + e.getMessage()).toString());
         }
     }

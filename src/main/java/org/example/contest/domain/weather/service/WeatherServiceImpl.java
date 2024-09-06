@@ -28,10 +28,10 @@ import java.util.List;
 public class WeatherServiceImpl implements WeatherService {
 
     @Value("${weather.api.url}")
-    private String apiUrl;
+    private String WeatherApiUrl;
 
     @Value("${weather.api.serviceKey}")
-    private String serviceKey;
+    private String WeatherServiceKey;
 
 
     /**
@@ -57,7 +57,7 @@ public class WeatherServiceImpl implements WeatherService {
             int nxInt = (int) Math.round(Double.parseDouble(nx));
             int nyInt = (int) Math.round(Double.parseDouble(ny));
 
-            String serviceKeyEncoded = serviceKey;
+            String serviceKeyEncoded = WeatherServiceKey;
             String numOfRows = "100";
             String pageNo = "1";
             String baseDateEncoded = URLEncoder.encode(baseDate, StandardCharsets.UTF_8.toString());
@@ -66,7 +66,7 @@ public class WeatherServiceImpl implements WeatherService {
             String nyEncoded = URLEncoder.encode(String.valueOf(nyInt), StandardCharsets.UTF_8.toString());
 
             // API URL 생성
-            StringBuilder urlBuilder = new StringBuilder(apiUrl);
+            StringBuilder urlBuilder = new StringBuilder(WeatherApiUrl);
             urlBuilder.append("?serviceKey=").append(serviceKeyEncoded);
             urlBuilder.append("&numOfRows=").append(numOfRows);
             urlBuilder.append("&pageNo=").append(pageNo);
