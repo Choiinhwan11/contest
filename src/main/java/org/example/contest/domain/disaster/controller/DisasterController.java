@@ -23,10 +23,15 @@ public class DisasterController {
     public ResponseEntity<String> getDisasterData() {
         String data = disasterService.getDisasterData();
         if (data != null) {
+            System.out.println("hello world ");
             return ResponseEntity.ok(data);
         } else {
             return ResponseEntity.status(500).body("Error fetching disaster data");
+
         }
+
+
+
     }
 
 }

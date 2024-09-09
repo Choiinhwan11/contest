@@ -22,14 +22,15 @@ public class WeatherController {
     public ResponseEntity<String> getWeather(@RequestParam(value = "nx", required = true) String nx,
                                              @RequestParam(value = "ny", required = true) String ny) {
         try {
-            // 날씨 데이터를 가져옴
             JSONObject weatherData = weatherService.getWeatherData(nx, ny);
-
-            // JSON 데이터를 문자열로 변환하여 반환
+            if (weatherData.has("message")) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(weatherData.toString());
+            }
             return ResponseEntity.ok(weatherData.toString());
         } catch (Exception e) {
-
-            return ResponseEntity.status(500).body(new JSONObject().put("error", "Error fetching weather data: " + e.getMessage()).toString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new JSONObject().put("error", "Error fetching weather data: " + e.getMessage()).toString());
         }
     }
+
 }

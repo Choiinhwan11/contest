@@ -134,7 +134,7 @@ public class WeatherServiceImpl implements WeatherService {
 
             // header 확인
             if (!responseObj.has("header")) {
-                throw new RuntimeException("API  'header' field");
+                throw new RuntimeException("API response does not contain a 'header' field");
             }
 
             String resultCode = responseObj.getJSONObject("header").optString("resultCode", "");

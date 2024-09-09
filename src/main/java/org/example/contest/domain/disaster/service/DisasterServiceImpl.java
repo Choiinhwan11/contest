@@ -1,6 +1,8 @@
 package org.example.contest.domain.disaster.service;
 
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +25,7 @@ public class DisasterServiceImpl implements DisasterService {
     @Value("${disaster.api.serviceKey}")
     private String serviceKey;
 
-    private String dataName = "데이터명";  // 실제 데이터명으로 대체 필요
+    private String dataName = "데이터명";
     private String pageNo = "1";
     private String numOfRows = "10";
 
@@ -32,10 +34,12 @@ public class DisasterServiceImpl implements DisasterService {
         try {
             // API를 호출하기 위한 URL 생성
             StringBuilder urlBuilder = new StringBuilder(apiUrl);
-            urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+            urlBuilder.append("?dataName=").append(URLEncoder.encode(dataName, "UTF-8")); // 인코딩된 데이터명 추가
+            urlBuilder.append("&serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8")); // 올바른 키명 사용
             urlBuilder.append("&pageNo=").append(URLEncoder.encode(pageNo, "UTF-8"));
             urlBuilder.append("&numOfRows=").append(URLEncoder.encode(numOfRows, "UTF-8"));
 
+            // 완성된 URL 출력 (디버깅 용)
             System.out.println("Request URL: " + urlBuilder.toString());
 
             // URI와 URL 생성
@@ -59,17 +63,55 @@ public class DisasterServiceImpl implements DisasterService {
                 reader.close();
                 connection.disconnect();
 
-                // API 응답 반환
-                return sb.toString();
+                return extractDisasterInfo(sb.toString());
             } else {
+                // 응답 실패 처리
                 System.err.println("API 호출 실패: 응답 코드 " + responseCode);
                 connection.disconnect();
                 return null;
             }
         } catch (Exception e) {
+            // 예외 처리
             e.printStackTrace();
             return null;
         }
+    }
+
+    private String extractDisasterInfo(String jsonResponse) {
+        // JSON 응답 파싱
+        JSONObject jsonObject = new JSONObject(jsonResponse);
+
+        // 결과 데이터를 저장할 StringBuilder
+        StringBuilder result = new StringBuilder();
+
+        // "body" 필드가 존재하는지 확인
+        if (jsonObject.has("body")) {
+            // "body"는 배열로 되어 있으므로 이를 처리
+            JSONArray bodyArray = jsonObject.getJSONArray("body");
+
+            for (int i = 0; i < bodyArray.length(); i++) {
+                JSONObject item = bodyArray.getJSONObject(i);
+
+                // '호우' 카테고리인 경우만 추출
+                if (item.getString("DST_SE_NM").equals("호우")) {
+                    String dateTime = item.getString("CRT_DT");
+                    String location = item.getString("RCPTN_RGN_NM");
+                    String message = item.getString("MSG_CN");
+
+                    result.append("날짜/시간: ").append(dateTime).append("\n");
+                    result.append("위치: ").append(location).append("\n");
+                    result.append("메시지 내용: ").append(message).append("\n\n");
+                }
+            }
+        } else {
+            return "body 필드가 응답에 존재하지 않습니다.";
+        }
+
+        if (result.length() == 0) {
+            return "호우 관련 정보가 없습니다.";
+        }
+
+        return result.toString();
     }
 
 }
