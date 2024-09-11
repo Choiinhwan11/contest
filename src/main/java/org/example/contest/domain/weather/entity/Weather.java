@@ -75,7 +75,14 @@ public class Weather {
                 return "흐림";
             default:
                 return "알 수 없음";
+
+
+
+
         }
+
     }
+
+
 
 }
