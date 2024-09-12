@@ -53,7 +53,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'  // 기본 테스트 의존성
 	testImplementation 'org.springframework.kafka:spring-kafka-test'  // Kafka 테스트 의존성
 
-	// JUnit 플랫폼 런처 (테스트 런타임 시 사용)
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// JSON 처리 의존성

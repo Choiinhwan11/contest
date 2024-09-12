@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>로그인 성공</title>
+</head>
+<body>
+<h1>네이버 로그인 성공</h1>
+<p th:if="${userInfo != null}">
+    환영합니다, <span th:text="${userInfo['name']}"></span>님!
+    이메일: <span th:text="${userInfo['email']}"></span>
+</p>
+<script>
+    setTimeout(function() {
+        window.location.href = '/';
+    }, 3000); // 3초 후 리다이렉트
+</script>
+</body>
+</html>
