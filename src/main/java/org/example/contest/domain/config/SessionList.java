@@ -1,2 +1,4 @@
-package org.example.contest.domain.config;public class SessionList {
+package org.example.contest.domain.config;
+
+public class SessionList {
 }

@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,6 @@ public class NaverLoginServiceImpl implements NaverLoginService {
     @Override
     public Map<String, Object> processNaverLogin(String code, String state) throws Exception {
         try {
-            // 네이버 OAuth 토큰 요청
             URI tokenUri = UriComponentsBuilder.fromUriString("https://nid.naver.com/oauth2.0/token")
                     .queryParam("grant_type", "authorization_code")
                     .queryParam("client_id", clientId)
@@ -47,49 +47,47 @@ public class NaverLoginServiceImpl implements NaverLoginService {
                     .build()
                     .toUri();
 
-            // 액세스 토큰 요청
             ResponseEntity<Map> tokenResponse = restTemplate.exchange(tokenUri, HttpMethod.POST, null, Map.class);
             Map<String, Object> tokenResponseBody = tokenResponse.getBody();
 
-            // 액세스 토큰이 존재하는지 확인
-            if (tokenResponseBody != null && tokenResponseBody.containsKey("access_token")) {
-                String accessToken = (String) tokenResponseBody.get("access_token");
-
-                // 사용자 정보 요청
-                URI userInfoUri = UriComponentsBuilder.fromUriString("https://openapi.naver.com/v1/nid/me")
-                        .build()
-                        .toUri();
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.set("Authorization", "Bearer " + accessToken);
-
-                HttpEntity<String> entity = new HttpEntity<>(headers);
-                ResponseEntity<Map> userInfoResponse = restTemplate.exchange(userInfoUri, HttpMethod.GET, entity, Map.class);
-
-                if (userInfoResponse.getBody() != null && userInfoResponse.getBody().containsKey("response")) {
-                    Map<String, Object> userInfo = (Map<String, Object>) userInfoResponse.getBody().get("response");
-
-                    String naverId = (String) userInfo.get("id");
-                    String name = (String) userInfo.get("name");
-                    String email = (String) userInfo.get("email");
-
-                    // 회원가입 또는 로그인 처리
-                    return registerOrLogin(naverId, name, email);
-                } else {
-                    throw new Exception("Failed to retrieve user info from Naver.");
-                }
-            } else {
+            if (tokenResponseBody == null || !tokenResponseBody.containsKey("access_token")) {
                 throw new Exception("Failed to retrieve access token from Naver.");
             }
+
+            String accessToken = (String) tokenResponseBody.get("access_token");
+
+            URI userInfoUri = UriComponentsBuilder.fromUriString("https://openapi.naver.com/v1/nid/me")
+                    .build()
+                    .toUri();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + accessToken);
+
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+            ResponseEntity<Map> userInfoResponse = restTemplate.exchange(userInfoUri, HttpMethod.GET, entity, Map.class);
+
+            if (userInfoResponse.getBody() == null || !userInfoResponse.getBody().containsKey("response")) {
+                throw new Exception("Failed to retrieve user info from Naver.");
+            }
+
+            Map<String, Object> userInfo = (Map<String, Object>) userInfoResponse.getBody().get("response");
+
+            String naverId = (String) userInfo.get("id");
+            String name = (String) userInfo.get("name");
+            String email = (String) userInfo.get("email");
+
+            return registerOrLogin(naverId, name, email);
+
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Error processing Naver login: " + e.getMessage());
+            throw new Exception("Error processing Naver login: " + e.getMessage(), e);
         }
     }
 
     private Map<String, Object> registerOrLogin(String naverId, String name, String email) {
-        User user = naverLoginRepository.findByUserId(naverId);
-        if (user == null) {
+        Optional<User> existingUser = Optional.ofNullable(naverLoginRepository.findByUserId(naverId));
+
+        if (existingUser.isEmpty()) {
             User newUser = User.builder()
                     .userId(naverId)
                     .name(name)
@@ -97,9 +95,23 @@ public class NaverLoginServiceImpl implements NaverLoginService {
                     .providerType(ProviderType.NAVER)
                     .build();
             naverLoginRepository.save(newUser);
-            return Map.of("status", "success", "userId", naverId);
+
+            return Map.of(
+                    "status", "success",
+                    "message", "User registered successfully",
+                    "userId", naverId,
+                    "userName", name,
+                    "userEmail", email
+            );
         } else {
-            return Map.of("status", "success", "userId", naverId);
+            User user = existingUser.get();
+            return Map.of(
+                    "status", "success",
+                    "message", "User logged in successfully",
+                    "userId", user.getUserId(),
+                    "userName", user.getName(),
+                    "userEmail", user.getEmail()
+            );
         }
     }
 }

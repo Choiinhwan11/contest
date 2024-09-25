@@ -1,2 +1,4 @@
-package org.example.contest.domain.defense.service;public interface DefenseService {
+package org.example.contest.domain.defense.service;
+
+public interface DefenseService {
 }

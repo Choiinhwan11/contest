@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'com.github.ben-manes.versions' version '0.48.0'  // Dependency updates plugin 추가
 }
 
 group = 'org.example'
@@ -36,9 +37,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'  // 웹 애플리케이션을 위한 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'  // WebSocket 지원 의존성
 
-	// Kafka 관련 의존성 (주석 처리, 필요 시 활성화)
-	// implementation 'org.springframework.kafka:spring-kafka'
-
 	// Lombok 의존성 (컴파일 타임에만 사용)
 	compileOnly 'org.projectlombok:lombok'  // Lombok 컴파일 시 사용
 	annotationProcessor 'org.projectlombok:lombok'  // Lombok 애너테이션 처리기
@@ -47,18 +45,21 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// MySQL 커넥터 (실행 시 사용)
-	runtimeOnly 'com.mysql:mysql-connector-j'  // MySQL JDBC 드라이버
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// 테스트 관련 의존성
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'  // 기본 테스트 의존성
-	testImplementation 'org.springframework.kafka:spring-kafka-test'  // Kafka 테스트 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
 
-	//thymeleaf
+	// Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+	// Apache POI for Excel (XLS and XLSX)
+	implementation 'org.apache.poi:poi:5.2.3'
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'
 
-
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// Proj4J for coordinate transformations
+	implementation 'org.locationtech.proj4j:proj4j:1.2.1'
 
 	// JSON 처리 의존성
 	implementation 'org.json:json:20210307'

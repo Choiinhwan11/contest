@@ -1,4 +1,4 @@
-package org.example.contest.domain.defense.entity;
+package org.example.contest.domain.config;
 
 import org.locationtech.proj4j.CRSFactory;
 import org.locationtech.proj4j.CoordinateReferenceSystem;

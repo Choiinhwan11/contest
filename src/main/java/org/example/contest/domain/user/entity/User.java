@@ -24,6 +24,9 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true, nullable = false)
+    private Long phone ;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProviderType providerType;
