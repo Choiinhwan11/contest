@@ -1,140 +1,17 @@
-2024-09-25 00:51:36 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=57m46s744ms).
-2024-09-25 02:29:35 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=1h37m58s641ms).
-2024-09-25 03:04:23 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=34m48s489ms).
-2024-09-25 03:44:56 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=40m33s264ms).
-2024-09-25 05:04:32 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=1h19m35s420ms).
-2024-09-25 05:56:04 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=51m31s762ms).
-2024-09-25 07:17:02 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=1h20m58s4ms).
-2024-09-25 08:06:13 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=49m11s856ms).
-2024-09-25 08:23:46 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=17m32s202ms).
-2024-09-25 09:32:27 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=1h8m41s379ms).
-2024-09-25 10:06:54 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=34m27s226ms).
-2024-09-25 10:22:48 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=15m53s562ms).
-2024-09-25 10:40:32 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=17m43s771ms).
-2024-09-25 10:55:44 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=15m12s494ms).
-2024-09-25 10:59:53 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=4m9s372ms).
-2024-09-25 11:16:23 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=16m29s310ms).
-2024-09-25 11:46:21 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=29m58s22ms).
-2024-09-25 11:51:32 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=5m11s591ms).
-2024-09-25 11:55:32 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=58s673ms).
-2024-09-25 11:57:31 [HikariPool-32 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-32 - Thread starvation or clock leap detected (housekeeper delta=58s820ms).
-2024-09-25 12:10:18 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-09-25 12:10:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-32 - Shutdown initiated...
-2024-09-25 12:10:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-32 - Shutdown completed.
-2024-09-25 12:10:20 [restartedMain] INFO  o.example.contest.ContestApplication - Starting ContestApplication using Java 17.0.11 with PID 43430 (/Users/choiinhwan/Desktop/project_contest/contest/build/classes/java/main started by choiinhwan in /Users/choiinhwan/Desktop/project_contest/contest)
-2024-09-25 12:10:20 [restartedMain] INFO  o.example.contest.ContestApplication - The following 1 profile is active: "default"
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 4 JPA repository interfaces.
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.map.repository.MapRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.user.repository.NaverLoginRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.user.repository.ProfileRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.weather.reoistory.WeatherRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:10:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
-2024-09-25 12:10:21 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-09-25 12:10:21 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-09-25 12:10:21 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-09-25 12:10:21 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-09-25 12:10:21 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 664 ms
-2024-09-25 12:10:21 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-09-25 12:10:21 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-09-25 12:10:21 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-09-25 12:10:21 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-09-25 12:10:21 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-09-25 12:10:21 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2102e257
-2024-09-25 12:10:21 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-09-25 12:10:21 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-09-25 12:10:21 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-09-25 12:10:21 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-09-25 12:10:21 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-09-25 12:10:22 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-09-25 12:10:22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-09-25 12:10:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2024-09-25 12:10:22 [restartedMain] INFO  o.example.contest.ContestApplication - Started ContestApplication in 2.019 seconds (process running for 2.368)
-2024-09-25 12:10:26 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-25 12:10:26 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-09-25 12:10:26 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-09-25 12:16:43 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
-2024-09-25 12:16:43 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-09-25 12:16:43 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-09-25 12:16:43 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-09-25 12:16:43 [restartedMain] INFO  o.example.contest.ContestApplication - Starting ContestApplication using Java 17.0.11 with PID 43430 (/Users/choiinhwan/Desktop/project_contest/contest/build/classes/java/main started by choiinhwan in /Users/choiinhwan/Desktop/project_contest/contest)
-2024-09-25 12:16:43 [restartedMain] INFO  o.example.contest.ContestApplication - The following 1 profile is active: "default"
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 4 JPA repository interfaces.
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.map.repository.MapRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.user.repository.NaverLoginRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.user.repository.ProfileRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.weather.reoistory.WeatherRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-09-25 12:16:44 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-09-25 12:16:44 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-09-25 12:16:44 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 168 ms
-2024-09-25 12:16:44 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-09-25 12:16:44 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-09-25 12:16:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2024-09-25 12:16:44 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@567676a7
-2024-09-25 12:16:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2024-09-25 12:16:44 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-09-25 12:16:44 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-09-25 12:16:44 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-09-25 12:16:44 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2024-09-25 12:16:44 [restartedMain] INFO  o.example.contest.ContestApplication - Started ContestApplication in 0.379 seconds (process running for 384.316)
-2024-09-25 12:16:44 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-09-25 12:16:59 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-25 12:16:59 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-09-25 12:16:59 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-09-25 12:19:32 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.context.request.async.AsyncRequestNotUsableException: ServletOutputStream failed to write: java.io.IOException: Broken pipe]
-2024-09-25 12:38:50 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
-2024-09-25 12:38:50 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-09-25 12:38:50 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2024-09-25 12:38:50 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2024-09-25 12:38:50 [restartedMain] INFO  o.example.contest.ContestApplication - Starting ContestApplication using Java 17.0.11 with PID 43430 (/Users/choiinhwan/Desktop/project_contest/contest/build/classes/java/main started by choiinhwan in /Users/choiinhwan/Desktop/project_contest/contest)
-2024-09-25 12:38:50 [restartedMain] INFO  o.example.contest.ContestApplication - The following 1 profile is active: "default"
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 4 JPA repository interfaces.
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.map.repository.MapRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.user.repository.NaverLoginRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.user.repository.ProfileRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.example.contest.domain.weather.reoistory.WeatherRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-09-25 12:38:50 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-09-25 12:38:50 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-09-25 12:38:50 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 171 ms
-2024-09-25 12:38:50 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-09-25 12:38:50 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-09-25 12:38:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
-2024-09-25 12:38:50 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@267d32d1
-2024-09-25 12:38:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
-2024-09-25 12:38:50 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-09-25 12:38:50 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-09-25 12:38:50 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-09-25 12:38:50 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2024-09-25 12:38:50 [restartedMain] INFO  o.example.contest.ContestApplication - Started ContestApplication in 0.417 seconds (process running for 1710.715)
-2024-09-25 12:38:50 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-09-25 12:39:11 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-09-25 12:39:11 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-09-25 12:39:11 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-09-25 14:10:20 [HikariPool-3 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=3m28s879ms).
+2024-10-01 00:05:13 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=42m41s835ms).
+2024-10-01 01:05:09 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=59m56s114ms).
+2024-10-01 02:43:42 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=1h38m33s623ms).
+2024-10-01 03:25:40 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=41m57s494ms).
+2024-10-01 05:05:40 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=1h40m160ms).
+2024-10-01 05:27:12 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=21m32s288ms).
+2024-10-01 05:43:12 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=15m59s887ms).
+2024-10-01 07:20:32 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=1h37m19s336ms).
+2024-10-01 08:04:52 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=44m20s177ms).
+2024-10-01 08:50:49 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=45m57s790ms).
+2024-10-01 10:05:50 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=1h15m185ms).
+2024-10-01 11:23:25 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=1h17m34s993ms).
+2024-10-01 12:04:21 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=40m56s176ms).
+2024-10-01 13:24:17 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=41m25s306ms).
+2024-10-01 13:27:10 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=2m53s910ms).
+2024-10-01 13:36:32 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=9m21s896ms).
+2024-10-01 13:40:07 [HikariPool-4 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=3m34s426ms).
