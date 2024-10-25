@@ -25,46 +25,61 @@ configurations {
 }
 
 repositories {
-	mavenCentral()  // 중앙 Maven 리포지토리 사용
+	mavenCentral()
+	maven {
+		url "https://repo.spring.io/milestone"
+	}
+	maven {
+		url "https://repo.spring.io/release"
+	}
+	mavenLocal()
 }
 
 dependencies {
 	// Spring Boot 스타터 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'  // Redis 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'  // OAuth2 클라이언트 의존성
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'  // Jakarta Validation API 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-web'  // 웹 애플리케이션을 위한 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'  // WebSocket 지원 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 
-	// Lombok 의존성 (컴파일 타임에만 사용)
-	compileOnly 'org.projectlombok:lombok'  // Lombok 컴파일 시 사용
-	annotationProcessor 'org.projectlombok:lombok'  // Lombok 애너테이션 처리기
+	// Redis와 Spring Session 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
 
-	// Spring Boot Devtools (개발 환경에서만 사용)
+	// Validation API 의존성
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+	// Lombok 의존성
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot Devtools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	// MySQL 커넥터 (실행 시 사용)
+	// MySQL 커넥터
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// 테스트 관련 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 
-	// Thymeleaf
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-	// Apache POI for Excel (XLS and XLSX)
+	// Apache POI for Excel
 	implementation 'org.apache.poi:poi:5.2.3'
 	implementation 'org.apache.poi:poi-ooxml:5.2.3'
 
 	// Proj4J for coordinate transformations
 	implementation 'org.locationtech.proj4j:proj4j:1.2.1'
 
+	// TLS 통신을 위한 Apache HttpClient 5.x 의존성
+	implementation 'org.apache.httpcomponents.client5:httpclient5:5.1'
+	implementation 'org.apache.httpcomponents.core5:httpcore5:5.1'
+
 	// JSON 처리 의존성
 	implementation 'org.json:json:20210307'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()  // JUnit 플랫폼 사용
+	useJUnitPlatform()
 }

@@ -94,6 +94,7 @@ public class WeatherServiceImpl implements WeatherService {
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
+
                 in.close();
 
                 String responseBody = response.toString();
@@ -209,9 +210,6 @@ public class WeatherServiceImpl implements WeatherService {
             throw new RuntimeException("Invalid JSON structure", ex);
         }
     }
-
-
-
 
     //  가까운예보 시간 계산
     private String getClosestForecastTime(LocalTime now, List<String> forecastTimes) {

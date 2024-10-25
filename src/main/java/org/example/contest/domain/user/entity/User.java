@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.contest.domain.interested.entity.InterestedInformation;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,28 +18,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "userId", unique = true, nullable = false)
     private String userId;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true, nullable = false)
-    private Long phone ;
+    @Column(name = "phone", unique = true, nullable = false)
+    private Long phone;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProviderType providerType;
 
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InterestedInformation> interests;
+
     @Builder
-    public User(String userId, String name, String email, ProviderType providerType) {
+    public User(String userId, String name, String email, Long phone, ProviderType providerType) {
         this.userId = userId;
         this.name = name;
         this.email = email;
+        this.phone = phone;
         this.providerType = providerType;
     }
 }
