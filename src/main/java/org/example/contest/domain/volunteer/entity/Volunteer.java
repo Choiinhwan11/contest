@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import org.example.contest.domain.user.entity.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 
 @Entity
 @NoArgsConstructor
@@ -21,6 +20,10 @@ public class Volunteer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)  // User와 Many-to-One 관계 설정
+    @JoinColumn(name = "user_id")  // 외래키 이름 설정
+    private User user;  // 자원봉사자 또는 자원봉사를 등록한 사용자
 
     @Column(nullable = false)
     private String province;
@@ -62,41 +65,4 @@ public class Volunteer {
     private String description;
 
     private int maxParticipants;
-
-//    private Volunteer(Builder builder) {
-//        this.id = builder.id;
-//        this.province = builder.province;
-//        this.city = builder.city;
-//        this.district = builder.district;
-//        this.location = builder.location;
-//        this.title = builder.title;
-//        this.victimType = builder.victimType;
-//        this.contactNumber = builder.contactNumber;
-//        this.date = builder.date;
-//        this.startTime = builder.startTime;
-//        this.endTime = builder.endTime;
-//        this.volunteerCount = builder.volunteerCount;
-//        this.preparation = builder.preparation;
-//        this.description = builder.description;
-//    }
-//
-//
-//    // Static inner Builder class
-//    public static class Builder {
-//        private Long id;
-//        private String province;
-//        private String city;
-//        private String district;
-//        private String location;
-//        private String title;
-//        private String victimType;
-//        private String contactNumber;
-//        private LocalDate date;
-//        private LocalTime startTime;
-//        private LocalTime endTime;
-//        private int volunteerCount;
-//        private String preparation;
-//        private String description;
-//
-//    }
 }

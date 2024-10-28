@@ -154,16 +154,7 @@ public class VolunteerServiceImpl implements VolunteerService {
 
     @Override
     public List<VolunteerListDTO> getMyVolunteerList(Long userId) {
-        List<Volunteer> volunteers = volunteerRepository.findByUserId(userId);
-
-        // 변환 작업을 수행하면서 DTO 객체 생성
-        List<VolunteerListDTO> volunteerDTOs = new ArrayList<>();
-        for (Volunteer volunteer : volunteers) {
-            VolunteerListDTO dto = VolunteerListDTO.fromEntity(volunteer);  // 변환 메서드 사용
-            volunteerDTOs.add(dto);
-        }
-
-        return volunteerDTOs;
+        return volunteerRepository.findByUserId(userId);
     }
 
 }

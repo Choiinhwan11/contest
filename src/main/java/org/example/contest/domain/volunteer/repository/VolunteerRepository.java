@@ -1,5 +1,6 @@
 package org.example.contest.domain.volunteer.repository;
 
+import org.example.contest.domain.volunteer.DTO.VolunteerListDTO;
 import org.example.contest.domain.volunteer.entity.Volunteer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface VolunteerRepository extends JpaRepository<Volunteer, Long>, JpaSpecificationExecutor<Volunteer> {
@@ -22,5 +24,10 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long>, Jpa
     @Query("SELECT COUNT(va) FROM VolunteerApplication va WHERE va.volunteer.id = :volunteerId")
     int countByVolunteerId(@Param("volunteerId") Long volunteerId);
 
-    List<Volunteer> findByUserId(Long userId);
+
+    @Query("SELECT v FROM Volunteer v WHERE v.id = :volunteerId AND v.user.id = :userId")
+    Optional<Volunteer> findByVolunteerIdAndUserId(@Param("volunteerId") Long volunteerId, @Param("userId") Long userId);
+
+    @Query("SELECT v FROM Volunteer v WHERE v.user.id = :userId")
+    List<VolunteerListDTO> findByUserId(Long userId);
 }

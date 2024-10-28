@@ -93,25 +93,10 @@ public class VolunteerController {
         }
     }
 
+    @GetMapping("/myvolounteerlist")
+    public List<VolunteerListDTO> getMyVolunteerList(@RequestParam("userId") Long userId) {
 
-    @GetMapping(path = "/myvolounteerlist")
-    public ResponseEntity<List<VolunteerListDTO>> getMyVolunteerList(HttpSession session) {
-        // 세션에서 사용자 ID를 가져옴
-        System.out.println("123123123");
-        Long userId = (Long) session.getAttribute("userId");
-
-        if (userId == null) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        // 서비스에서 해당 사용자가 참여한 자원봉사 목록을 가져옴
-        List<VolunteerListDTO> volunteerList = volunteerService.getMyVolunteerList(userId);
-
-        if (volunteerList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(volunteerList);
+        return volunteerService.getMyVolunteerList(userId);
     }
 
 }
