@@ -3,9 +3,12 @@ package org.example.contest.domain.volunteer.DTO;
 import org.example.contest.domain.volunteer.entity.Volunteer;
 
 public class VolunteerConverterDTO {
+
+
     public VolunteerListDTO convertToDTO(Volunteer volunteer) {
         return VolunteerListDTO.builder()
-                .id(volunteer.getId())  // 자원봉사 ID
+                .id(volunteer.getId())  // 자원봉사 리스트 아이디
+                .userId(volunteer.getUser().getId()) //회원 아이디
                 .province(volunteer.getProvince())  // 도
                 .city(volunteer.getCity())  // 시
                 .district(volunteer.getDistrict())  // 구

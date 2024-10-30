@@ -39,7 +39,8 @@ public class User {
     private List<InterestedInformation> interests;
 
     @Builder
-    public User(String userId, String name, String email, Long phone, ProviderType providerType) {
+    public User(Long id ,String userId, String name, String email, Long phone, ProviderType providerType) {
+        this.id =id ;
         this.userId = userId;
         this.name = name;
         this.email = email;

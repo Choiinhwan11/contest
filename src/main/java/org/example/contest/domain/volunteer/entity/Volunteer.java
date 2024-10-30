@@ -21,9 +21,9 @@ public class Volunteer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)  // User와 Many-to-One 관계 설정
-    @JoinColumn(name = "user_id")  // 외래키 이름 설정
-    private User user;  // 자원봉사자 또는 자원봉사를 등록한 사용자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false)
     private String province;

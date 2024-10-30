@@ -46,6 +46,7 @@ public class NaverLoginController {
 
             // DTO로 변환 후 세션에 저장
             UserDTO userDTO = UserDTO.builder()
+                    .id((Long) userInfo.get("id"))
                     .userId((String) userInfo.get("userId"))
                     .userName((String) userInfo.get("userName"))
                     .userEmail((String) userInfo.get("userEmail"))

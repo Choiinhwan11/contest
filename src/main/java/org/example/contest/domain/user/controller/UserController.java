@@ -33,6 +33,8 @@ public class UserController {
             response.put("message", "유저 정보 없음");
         } else {
             // 유저 정보가 있는 경우
+            response.put("userInfo", userInfo);
+            response.put("id", userInfo.getId());
             response.put("userId", userInfo.getUserId());
             response.put("userName", userInfo.getUserName());
             response.put("userEmail", userInfo.getUserEmail());

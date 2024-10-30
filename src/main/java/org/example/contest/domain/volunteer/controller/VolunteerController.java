@@ -82,7 +82,6 @@ public class VolunteerController {
         Long userId = volunteerApplyDTO.getUserId();
 
         System.out.println("controller 에 들어옴 ");
-        ;
         /*로직 */
         boolean isApplied = volunteerService.applyForVolunteer(volunteerId, userId);
 
@@ -95,7 +94,7 @@ public class VolunteerController {
 
     @GetMapping("/myvolounteerlist")
     public List<VolunteerListDTO> getMyVolunteerList(@RequestParam("userId") Long userId) {
-
+        System.out.println(userId);
         return volunteerService.getMyVolunteerList(userId);
     }
 

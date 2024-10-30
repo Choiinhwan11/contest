@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.contest.domain.user.entity.User;
 
 @Entity
 @Getter
@@ -23,7 +24,10 @@ public class VolunteerApplication {
     @JoinColumn(name = "volunteer_id")
     private Volunteer volunteer;  // 신청한 자원봉사 정보
 
-    private Long userId;  // 신청자의 ID
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public VolunteerApplication(Volunteer volunteer, Long userId) {
     }
